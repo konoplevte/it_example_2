@@ -1,4 +1,5 @@
-from .tasks import add, list, done, help
+from .tasks import add, done, help, list
+
 
 def run() -> None:
     while True:
@@ -14,10 +15,8 @@ def run() -> None:
             idx = int(input("Input index > "))
             done(idx)
         elif command == "help":
-            print(help()) 
+            print(help())
         elif command == "exit":
             break
         else:
-            print("unknown command")                    
-
-    
+            print("unknown command")
