@@ -1,6 +1,6 @@
-from .file_storage import save_storage
+from .file_storage import save_storage, load_storage
 
-tasks: list[dict] = []
+tasks: list[dict] = load_storage()
 
 
 def add(title: str) -> None:
