@@ -1,25 +1,37 @@
-from .file_storage import save_storage, load_storage
 
-tasks: list[dict] = load_storage()
+_tasks: list[dict] = []
 
+def init_tasks(tasks: list[dict]) -> None:
+    global _tasks
+    _tasks = tasks
+
+def get_tasks() -> list[dict]:
+    return _tasks
 
 def add(title: str) -> None:
-    tasks.append({"title": title, "done": False})
-    save_storage(tasks)
+    _tasks.append({"name": title, "done": False})
 
 
 def list() -> str:
     result: str = ""
 
-    for i, task in enumerate(tasks):
-        result += f"{i}. [{'X' if task['done'] else ' '}] {task['title']}\n"
+    for i, task in enumerate(_tasks):
+        result += f"{i}. [{'X' if task['done'] else ' '}] {task['name']}\n"
 
     return result
 
 
 def done(idx) -> None:
-    tasks[idx]["done"] = True
+    _tasks[idx]["done"] = True
 
+def delete_task(idx) -> dict | None:
+    if idx < 0:
+        raise IndexError("Индекс меньше 0")
+
+    try:
+        return _tasks.pop(idx)
+    except IndexError:
+        return None
 
 def help() -> str:
     return ("Это агент для управления задачами\n"
