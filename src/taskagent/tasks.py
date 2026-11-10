@@ -1,8 +1,11 @@
+from .file_storage import save_storage
+
 tasks: list[dict] = []
 
 
 def add(title: str) -> None:
     tasks.append({"title": title, "done": False})
+    save_storage(tasks)
 
 
 def list() -> str:
